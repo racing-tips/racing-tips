@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.springframework.boot' version '2.0.5.RELEASE'
+}
+
+dependencies {
+
+    compile 'org.springframework.boot:spring-boot-starter-web'
+
+    testCompile 'junit:junit:4.12'
+}
+
+repositories {
+    jcenter()
+}
+
+bootJar {
+    baseName = 'racing-tips'
+    version =  '0.1.0'
+}
+
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+version = '0.0.1'
+mainClassName = 'App'
+
+
