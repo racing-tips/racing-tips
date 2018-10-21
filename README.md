@@ -23,9 +23,9 @@ I want to get the answer and display on a website. To do this can have something
 
 Version 1
 
-* Manually add predictions to DB
+* Manually add tips to DB
 * Manually add results to DB
-* Single Microservice to retrieve predictions and results
+* Single Microservice to retrieve tips and results
 * API Gateway
 * Web site to display the days result
 * Unauthenticated
@@ -33,7 +33,7 @@ Version 1
 Version 2...N
 
 * Automatically add results (https://developer.betfair.com)
-* Automatically add predictions (data source Twitter)
+* Automatically add tips (data source Twitter)
 * Historical / graphical view
 * Authenticated
 * Capture who made the tip
