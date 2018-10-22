@@ -33,8 +33,7 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
-        - run: gradle test jib
-
+      - run: gradle test jib
 workflows:
   version: 2
   test:
