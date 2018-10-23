@@ -3,9 +3,10 @@ jobs:
   test:
     docker:
       - image: circleci/openjdk:8-jdk
-    working_directory: ~/backend
+    working_directory: ~/project/backend
     steps:
-      - checkout
+      - checkout:
+          path: ~/project
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "build.gradle" }}
@@ -16,30 +17,26 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
-      - run: gradle test
-  build_docker:
-    docker:
-      - image: circleci/openjdk:8-jdk
-    working_directory: ~/backend
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "build.gradle" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-      - run: gradle dependencies
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle" }}
-      - run: gradle jib
+      - run:
+          command: gradle test
+  # build_docker:
+  #   docker:
+  #     - image: circleci/openjdk:8-jdk
+  #   steps:
+  #     - checkout
+  #     - restore_cache:
+  #         keys:
+  #         - v1-dependencies-{{ checksum "build.gradle" }}
+  #         # fallback to using the latest cache if no exact match is found
+  #         - v1-dependencies-
+  #     - run: gradle dependencies
+  #     - save_cache:
+  #         paths:
+  #           - ~/.gradle
+  #         key: v1-dependencies-{{ checksum "build.gradle" }}
+  #     - run: gradle jib
 workflows:
   version: 2
-  test_build_docker:
+  test:
     jobs:
       - test
-      - build_docker:
-          filters:
-            branches:
-              only: master
