@@ -3,6 +3,9 @@ jobs:
   test:
     docker:
       - image: circleci/openjdk:8-jdk
+    # Peculiar workaround to set the working directory correctly.
+    # Set it to a sub directory globally then set the git checkout
+    # step to the root dir
     working_directory: ~/project/backend
     steps:
       - checkout:
@@ -19,24 +22,35 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle" }}
       - run:
           command: gradle test
-  # build_docker:
-  #   docker:
-  #     - image: circleci/openjdk:8-jdk
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         keys:
-  #         - v1-dependencies-{{ checksum "build.gradle" }}
-  #         # fallback to using the latest cache if no exact match is found
-  #         - v1-dependencies-
-  #     - run: gradle dependencies
-  #     - save_cache:
-  #         paths:
-  #           - ~/.gradle
-  #         key: v1-dependencies-{{ checksum "build.gradle" }}
-  #     - run: gradle jib
+  build_docker:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/project/backend
+    steps:
+      - checkout:
+          path: ~/project
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "build.gradle" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+      - run: gradle dependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: v1-dependencies-{{ checksum "build.gradle" }}
+      - run: gradle test jib # want jib to depend on test lifecycle phase so I dont have to call both here
 workflows:
   version: 2
   test:
     jobs:
-      - test
+      - test:
+          filters:
+            branches:
+              ignore: master
+  test_build:
+      jobs:
+        - build_docker:
+            filters:
+              branches:
+                only: master

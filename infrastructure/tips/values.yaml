@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: 256440694439.dkr.ecr.us-east-2.amazonaws.com/racing-tips
   tag: stable
   pullPolicy: IfNotPresent
 
