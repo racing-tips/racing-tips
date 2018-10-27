@@ -1,5 +1,7 @@
 # Racing Tips
 
+[![CircleCI](https://circleci.com/gh/rankers/racing-tips/tree/master.svg?style=svg)](https://circleci.com/gh/rankers/racing-tips/tree/master)
+
 This project aims to answer the age old question - how successful are the racing tips on [Radio 4's Today programme](https://www.bbc.co.uk/programmes/b006qj9z)?
 
 There may be sources out there that give you this data for free however this wouldn't serve the second more important aim. That of using techniques, tools and technologies I either have an interest in or feel that I want to further develop.
