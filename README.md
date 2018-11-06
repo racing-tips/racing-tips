@@ -21,7 +21,7 @@ Examples being:
   * Deployment Pipelines
   * IaC
 
-I want to get the answer and display on a website. To do this can have something very small and manual for v1 and iterate to a more complex software stack utilising / learning more tools as I go. (Of course depending on amount of time I have to code on my spare time)
+I want to get the answer and display on a website. To do this can have something very small and manual for v1 and iterate to a more complex software stack utilising / learning more tools as I go. (Of course depending on amount of time I have to code in my spare time)
 
 Version 1
 
@@ -52,7 +52,7 @@ Version 2...N
 .
 ├── README.md
 ├── backend
+├── docker
 ├── docs
 └── infrastructure
 ```
-
