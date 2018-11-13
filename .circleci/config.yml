@@ -45,6 +45,17 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
       - run: gradle test jib # want jib to depend on test lifecycle phase so I dont have to call both here
+  deploy_app:
+    docker:
+      - image: 256440694439.dkr.ecr.us-east-2.amazonaws.com/ci:3
+        aws_auth:
+          aws_access_key_id: $AWS_ACCESS_KEY_ID
+          aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
+    steps:
+      - checkout:
+          path: ~/project
+      - run: kops export kubecfg # expects KOPS_CLUSTER_NAME env var to be set
+      - run: kubectl config view
 workflows:
   version: 2
   test:
@@ -53,9 +64,12 @@ workflows:
           filters:
             branches:
               ignore: master
-  test_build:
+  test_build_deploy:
       jobs:
         - build_docker:
             filters:
               branches:
                 only: master
+        - deploy_app:
+            requires:
+              - build_docker

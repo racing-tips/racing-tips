@@ -20,7 +20,7 @@ $ aws s3api put-bucket-encryption --bucket racing-tips-cluster --server-side-enc
 Prepare local env
 
 ```
-$ export NAME=racing-tips.k8s.local
+$ export KOPS_CLUSTER_NAME=racing-tips.k8s.local
 $ export KOPS_STATE_STORE=s3://racing-tips-cluster
 ```
 
@@ -54,17 +54,17 @@ $ aws ec2 describe-availability-zones --region eu-west-1
 
 $ kops create cluster \
     --zones eu-west-1a \
-    ${NAME}
+    --node-size=t3.small \
+    ${KOPS_CLUSTER_NAME}
 
-$ kops update cluster ${NAME} --yes
+$ kops update cluster ${KOPS_CLUSTER_NAME} --yes
 $ kops validate cluster
 
 ```
-
 Remember to delete after experimenting
 ```
-$ kops delete cluster --name ${NAME}
-$ kops delete cluster --name ${NAME}  --yes
+$ kops delete cluster --name ${KOPS_CLUSTER_NAME}
+$ kops delete cluster --name ${KOPS_CLUSTER_NAME}  --yes
 ```
 
 Note need to determine if we want a [private](https://github.com/kubernetes/kops/blob/master/docs/topology.md) cluster network topology
