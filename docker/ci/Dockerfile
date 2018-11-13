@@ -19,3 +19,8 @@ RUN sudo apt-get install -y kubectl
 RUN sudo curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
 RUN sudo chmod +x kops-linux-amd64
 RUN sudo mv kops-linux-amd64 /usr/local/bin/kops
+
+# helm
+RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get > get_helm.sh
+RUN chmod 700 get_helm.sh
+RUN ./get_helm.sh
