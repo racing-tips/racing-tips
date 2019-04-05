@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
+  # Note image tag is taken from appVersion field in Chart.yaml
   repository: 256440694439.dkr.ecr.us-east-2.amazonaws.com/racing-tips
-  tag: stable
   pullPolicy: IfNotPresent
 
 service:
