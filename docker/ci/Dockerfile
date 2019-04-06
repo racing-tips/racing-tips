@@ -21,6 +21,8 @@ RUN sudo chmod +x kops-linux-amd64
 RUN sudo mv kops-linux-amd64 /usr/local/bin/kops
 
 # helm
-RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get > get_helm.sh
-RUN chmod 700 get_helm.sh
+ADD get_helm.sh get_helm.sh
+RUN sudo chmod +x get_helm.sh
 RUN ./get_helm.sh
+RUN helm init --client-only
+RUN helm plugin install https://github.com/hypnoglow/helm-s3.git
