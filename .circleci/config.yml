@@ -22,7 +22,7 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle" }}
       - run:
           command: gradle test
-  build_docker:
+  build_job:
     docker:
       - image: 256440694439.dkr.ecr.us-east-2.amazonaws.com/ci:5
         aws_auth:
@@ -44,22 +44,10 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
-      - run: gradle test jib # want jib to depend on test lifecycle phase so I dont have to call both her
+      - run: gradle test jib # want jib to depend on test lifecycle phase so I dont have to call both here
       - run: helm repo add rankers-charts s3://rankers-helm-charts/charts
       - run: helm package --app-version=$CIRCLE_BUILD_NUM --version=0.1.0-$CIRCLE_BUILD_NUM ../infrastructure/chart-src/tips
       - run: helm s3 push ./tips-0.1.0-$CIRCLE_BUILD_NUM.tgz rankers-charts
-
-  deploy_app:
-    docker:
-      - image: 256440694439.dkr.ecr.us-east-2.amazonaws.com/ci:5
-        aws_auth:
-          aws_access_key_id: $AWS_ACCESS_KEY_ID
-          aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
-    steps:
-      - checkout:
-          path: ~/project
-      - run: kops export kubecfg # expects KOPS_CLUSTER_NAME env var to be set
-      - run: kubectl config view
 workflows:
   version: 2
   test:
@@ -68,12 +56,9 @@ workflows:
           filters:
             branches:
               ignore: master
-  test_build_deploy:
+  build:
       jobs:
-        - build_docker:
+        - build_job:
             filters:
               branches:
                 only: master
-        - deploy_app:
-            requires:
-              - build_docker

@@ -13,6 +13,10 @@ Examples being:
   * Java / Kotlin
   * Gradle
   * Microservice architecture
+    * Logging
+    * Monitoring
+    * Resilience
+    * Testing
   * Event driven architecure
   * Domain Driven Design
   * ML
@@ -56,3 +60,26 @@ Version 2...N
 ├── docs
 └── infrastructure
 ```
+
+# Build and Deployment
+
+Checkout Circle CI `.circleci/config.yml` in the root of the repo. Pipeline is split out into a number of steps:
+
+## build_docker job
+
+1. Set custom build image with necessary tooling installed, Helm, Kops etc.
+2. Set dedicated `circleci` user AWS secret and secret id environment variables
+3. Build + test backend services using standard Java Gradle plugin
+4. [Jib gradle plugin](https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin) step to create images. Distroless Java base image by default.
+5. Saves images to ECR registry. Authenticate via [ECR Credential helper](https://github.com/awslabs/amazon-ecr-credential-helper.git)
+6. Create helm package from `infrastructure/chart-src` folder referencing new image tag
+7. Save to S3 helm repository
+
+## deploy job
+
+Pattern heavily inspired by [weave.works GitOps](https://www.weave.works/blog/delivering-quality-at-speed-with-gitops) and [Jenkins X promotion](https://jenkins-x.io/about/features/#promotion)
+
+1. Deployment manifest in the form of a Helm meta chart stored in an environment specific git repository
+2. On successful build promote manifest - create a PR to staging env repo containing updated versions of Helm packages
+3. If PR passes policies for that particular repo merge to master. Staging policies allow automated merge, Production environment PRs can have a manual approval if desired
+4. Deploy triggered on update of master
