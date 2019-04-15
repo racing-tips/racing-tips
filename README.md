@@ -1,6 +1,6 @@
 # Racing Tips
 
-[![CircleCI](https://circleci.com/gh/rankers/racing-tips/tree/master.svg?style=svg)](https://circleci.com/gh/rankers/racing-tips/tree/master)
+[![CircleCI](https://circleci.com/gh/racing-tips/racing-tips.svg?style=svg)](https://circleci.com/gh/racing-tips/racing-tips)
 
 This project aims to answer the age old question - how successful are the racing tips on [Radio 4's Today programme](https://www.bbc.co.uk/programmes/b006qj9z)?
 
