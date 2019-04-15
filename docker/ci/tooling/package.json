@@ -9,6 +9,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "commander": "^2.20.0",
     "js-yaml": "^3.13.1"
+  },
+  "preferGlobal": true,
+  "bin": {
+    "update-requirements": "./update-requirements.js"
   }
 }

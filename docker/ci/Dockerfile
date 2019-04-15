@@ -26,3 +26,14 @@ RUN sudo chmod +x get_helm.sh
 RUN ./get_helm.sh
 RUN helm init --client-only
 RUN helm plugin install https://github.com/hypnoglow/helm-s3.git
+
+# node
+RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+RUN sudo apt-get install -y nodejs
+
+# Custom tooling
+WORKDIR /home/circleci/tooling
+COPY ./tooling ./
+RUN sudo chown -R $(whoami):$(whoami) ./
+RUN npm install
+RUN sudo ln -s ./update-requirements.js /usr/local/bin

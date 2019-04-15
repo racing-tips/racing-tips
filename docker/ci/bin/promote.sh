@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 REPO=racing-tips-environment-$ENVIRONMENT
 SOURCE_BRANCH=build/$CIRCLE_BUILD_NUM
@@ -12,5 +12,5 @@ cd /tmp/$REPO
 git checkout -b $SOURCE_BRANCH
 node update-requirements.js
 git add .
-git commit -m "Updaing deployment configuration"
+git commit -m "Updating deployment configuration"
 # git push --set-upstream origin $SOURCE_BRANCH

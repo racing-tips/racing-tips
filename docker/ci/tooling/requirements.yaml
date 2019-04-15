@@ -1,0 +1,4 @@
+dependencies:
+  - name: tips
+    version: '2'
+    repository: 's3://rankers-helm-charts/charts'
