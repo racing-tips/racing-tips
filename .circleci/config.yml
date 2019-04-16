@@ -45,9 +45,9 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
       - run: gradle test jib # want jib to depend on test lifecycle phase so I dont have to call both here
-      - run: helm repo add rankers-charts s3://rankers-helm-charts/charts
       - run: helm package --app-version=$CIRCLE_BUILD_NUM --version=0.1.0-$CIRCLE_BUILD_NUM ../infrastructure/chart-src/tips
       - run: helm s3 push ./tips-0.1.0-$CIRCLE_BUILD_NUM.tgz rankers-charts
+      - run: promote-artifact
 workflows:
   version: 2
   test:

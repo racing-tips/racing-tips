@@ -83,3 +83,10 @@ Pattern heavily inspired by [weave.works GitOps](https://www.weave.works/blog/de
 2. On successful build promote manifest - create a PR to staging env repo containing updated versions of Helm packages
 3. If PR passes policies for that particular repo merge to master. Staging policies allow automated merge, Production environment PRs can have a manual approval if desired
 4. Deploy triggered on update of master
+
+
+### Sematic version vs build version
+
+* Updates to semver format version of a helm chart or the app version is a manual process that a dev / ops / test person initiates as a result of some functional change
+* Charts and applications will have 0.1.0 as a default
+*  A valid semver format version for CI builds will follow {Current Semver Version}-{Build Number}. E.g. Build 61 of an application with sematic version 0.1.0 will be 0.1.0-61

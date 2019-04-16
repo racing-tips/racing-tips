@@ -27,6 +27,9 @@ RUN ./get_helm.sh
 RUN helm init --client-only
 RUN helm plugin install https://github.com/hypnoglow/helm-s3.git
 
+# Helm add rankers-charts repo
+RUN helm repo add rankers-charts s3://rankers-helm-charts/charts
+
 # node
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 RUN sudo apt-get install -y nodejs
@@ -36,4 +39,7 @@ WORKDIR /home/circleci/tooling
 COPY ./tooling ./
 RUN sudo chown -R $(whoami):$(whoami) ./
 RUN npm install
-RUN sudo ln -s ./update-requirements.js /usr/local/bin
+RUN sudo ln -s /home/circleci/tooling/update-requirements.js /usr/local/bin/update-requirements
+
+# Shell scripts
+COPY ./bin/ /usr/local/bin/
