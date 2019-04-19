@@ -14,4 +14,4 @@ git checkout -b $SOURCE_BRANCH
 update-requirements requirements.yaml tips $SEMVER-$CIRCLE_BUILD_NUM
 git add .
 git commit -m "Updating deployment configuration"
-# git push --set-upstream origin $SOURCE_BRANCH
+git push --set-upstream origin $SOURCE_BRANCH

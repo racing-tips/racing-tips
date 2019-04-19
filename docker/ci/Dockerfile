@@ -27,9 +27,6 @@ RUN ./get_helm.sh
 RUN helm init --client-only
 RUN helm plugin install https://github.com/hypnoglow/helm-s3.git
 
-# Helm add rankers-charts repo
-RUN helm repo add rankers-charts s3://rankers-helm-charts/charts
-
 # node
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 RUN sudo apt-get install -y nodejs
