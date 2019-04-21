@@ -24,7 +24,7 @@ jobs:
           command: gradle test
   build_job:
     docker:
-      - image: 256440694439.dkr.ecr.us-east-2.amazonaws.com/ci:6
+      - image: 256440694439.dkr.ecr.us-east-2.amazonaws.com/ci:7
         aws_auth:
           aws_access_key_id: $AWS_ACCESS_KEY_ID
           aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
