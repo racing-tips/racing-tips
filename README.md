@@ -17,7 +17,8 @@ Examples being:
     * Monitoring
     * Resilience
     * Testing
-  * Event driven architecure
+  * Event driven architecture
+  * Monitoring and Observability (Logging, Telemetry, Alerting, Dashboards) 
   * Domain Driven Design
   * ML
   * API design
@@ -47,6 +48,10 @@ Version 2...N
 * Ingest live radio stream, convert speech to text then to meaningful data (NLP/ML?)
 * Other tipsters
 * ....
+
+## High Level Design
+
+![High Level Design](docs/architecture/diagrams/v2/racing-tips-v2-hld.png)
 
 ## Developing
 

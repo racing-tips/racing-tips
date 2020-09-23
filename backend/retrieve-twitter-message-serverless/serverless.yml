@@ -1,0 +1,18 @@
+service: retrieve-twitter-message-serverless
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'eu-west-1'}
+
+custom:
+  env: ${file(./${self:provider.stage}.env.json)}
+
+functions:
+  bot:
+    handler: handler.bot
+    events:
+      - schedule: rate(5 hours)
+    environment:
+      TWITTER_API_BEARER_TOKEN: ${self:custom.env.TWITTER_API_BEARER_TOKEN}
