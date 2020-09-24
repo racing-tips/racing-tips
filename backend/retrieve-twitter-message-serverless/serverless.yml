@@ -2,6 +2,8 @@ service: retrieve-twitter-message-serverless
 
 provider:
   name: aws
+  iamManagedPolicies:
+    - 'arn:aws:iam::256440694439:policy/DynamoDBRacingTipsWrite'
   runtime: nodejs12.x
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'eu-west-1'}

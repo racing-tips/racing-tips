@@ -66,6 +66,10 @@ Version 2...N
 └── infrastructure
 ```
 
+## Learnings
+
+* Serverless framework defines roles for Lambda. When terraform is used in conjunction with this to provision DBs the variable names / configuration conventions are split across 2 technologies so opportunity to drift from each other.
+
 # Build and Deployment
 
 Checkout Circle CI `.circleci/config.yml` in the root of the repo. Pipeline is split out into a number of steps:
