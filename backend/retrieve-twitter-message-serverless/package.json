@@ -4,12 +4,15 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@shelf/jest-dynamodb": "^1.7.0",
     "aws-sdk": "^2.760.0",
+    "jest": "^26.4.2",
     "needle": "^2.5.2"
   }
 }
