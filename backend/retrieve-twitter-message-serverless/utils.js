@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk');
-const needle = require("needle");
+const axios = require('axios');
+const { v4: uuidv4 } = require('uuid');
 
 async function getTweets(token) {
   const params = {
@@ -9,17 +10,19 @@ async function getTweets(token) {
 
   const endpointUrl = "https://api.twitter.com/2/tweets/search/recent";
 
-  const res = await needle('get', endpointUrl, params, {
+  const res = await axios.get(endpointUrl, params, {
     headers: {
       authorization: `Bearer ${token}`,
     },
   });
 
-  console.log(res);
   if (res.body) {
-    return res.body;
+    if (res.body.data){
+      return res.body.data;
+    } else {
+      throw new Error("Bad Response Format");
+    }
   } else {
-    // TODO standard error handling
     throw new Error("Unsuccessful request");
   }
 }
@@ -33,7 +36,8 @@ async function writeToDB(dynamodb, tweets) {
         await dynamodb.putItem({
             "TableName": tableName,
             "Item" : {
-                "id": { N: tweet.id }, // TODO don't use twitter ID as internal id
+                "id": { N: uuidv4() }, // TODO don't use twitter ID as internal id
+                "tweetId": { N: tweet.id },
                 "created_at": {S: tweet.created_at},
                 "text": {S: tweet.text}
             }

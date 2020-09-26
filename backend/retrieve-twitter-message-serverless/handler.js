@@ -13,7 +13,7 @@ module.exports.bot = async () => {
   }
 
   try {
-    await writeToDB(createDBClient(), response.data);
+    await writeToDB(createDBClient(), response);
   } catch (e) {
     console.log(e);
     process.exit(-1);

@@ -69,6 +69,7 @@ Version 2...N
 ## Learnings
 
 * Serverless framework defines roles for Lambda. When terraform is used in conjunction with this to provision DBs the variable names / configuration conventions are split across 2 technologies so opportunity to drift from each other.
+* Error handling https://www.joyent.com/node-js/production/design/errors
 
 # Build and Deployment
 

@@ -5,13 +5,15 @@
   "main": "handler.js",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:ci": "jest --coverage"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@shelf/jest-dynamodb": "^1.7.0",
     "aws-sdk": "^2.760.0",
+    "axios": "^0.20.0",
     "jest": "^26.4.2",
     "needle": "^2.5.2"
   }
